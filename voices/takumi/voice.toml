@@ -18,7 +18,7 @@ text = "HTS Voice \"Takumi\", released by MMDAgent Project Team; Copyright (c) N
 id = "1.8+r1"
 upstream_version = "1.8"
 revision = 1
-status = "pending"
+status = "current"
 observed_at = "2026-10-07T00:00:00Z"
 
 [releases.source]
