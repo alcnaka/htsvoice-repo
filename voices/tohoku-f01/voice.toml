@@ -1,0 +1,57 @@
+schema_version = 1
+id = "tohoku-f01"
+name = "Tohoku-f01"
+description = "Japanese female HTS voice with four emotions: angry, happy, neutral, and sad."
+language = "ja"
+locale = "ja-JP"
+publisher = "Intelligent Communication Network Laboratory, Tohoku University"
+
+[license]
+spdx = "CC-BY-4.0"
+name = "Creative Commons Attribution 4.0 International"
+url = "https://creativecommons.org/licenses/by/4.0/"
+
+[attribution]
+text = "Copyright (c) 2015 Intelligent Communication Network (Ito-Nose) Laboratory, Tohoku University."
+
+[[releases]]
+id = "2015+r1"
+upstream_version = "2015"
+revision = 1
+status = "pending"
+observed_at = "2026-10-07T00:00:00Z"
+
+[releases.source]
+kind = "tar.gz"
+url = "https://github.com/icn-lab/htsvoice-tohoku-f01/archive/8e3306021db135c265f5eda5f062dc489707ddf8.tar.gz"
+homepage = "https://github.com/icn-lab/htsvoice-tohoku-f01"
+distribution = "https://github.com/icn-lab/htsvoice-tohoku-f01"
+filename = "htsvoice-tohoku-f01-8e3306021db135c265f5eda5f062dc489707ddf8.tar.gz"
+git_commit = "8e3306021db135c265f5eda5f062dc489707ddf8"
+mirror = true
+strip_components = 1
+license_path = "COPYRIGHT.txt"
+
+[[releases.variants]]
+id = "neutral"
+name = "Neutral"
+style = "neutral"
+path = "tohoku-f01-neutral.htsvoice"
+
+[[releases.variants]]
+id = "happy"
+name = "Happy"
+style = "happy"
+path = "tohoku-f01-happy.htsvoice"
+
+[[releases.variants]]
+id = "angry"
+name = "Angry"
+style = "angry"
+path = "tohoku-f01-angry.htsvoice"
+
+[[releases.variants]]
+id = "sad"
+name = "Sad"
+style = "sad"
+path = "tohoku-f01-sad.htsvoice"
