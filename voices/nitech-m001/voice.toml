@@ -1,0 +1,38 @@
+schema_version = 1
+id = "nitech-m001"
+name = "NIT ATR503 M001"
+description = "Japanese male HTS voice released as part of Open JTalk."
+language = "ja"
+locale = "ja-JP"
+publisher = "HTS Working Group"
+
+[license]
+spdx = "CC-BY-3.0"
+name = "Creative Commons Attribution 3.0"
+url = "https://creativecommons.org/licenses/by/3.0/"
+
+[attribution]
+text = "HTS Voice \"NIT ATR503 M001\"; Copyright (c) 2003-2012 Nagoya Institute of Technology and contributors."
+
+[[releases]]
+id = "1.05+r1"
+upstream_version = "1.05"
+revision = 1
+status = "pending"
+observed_at = "2026-10-07T00:00:00Z"
+
+[releases.source]
+kind = "tar.gz"
+url = "https://downloads.sourceforge.net/project/open-jtalk/HTS%20voice/hts_voice_nitech_jp_atr503_m001-1.05/hts_voice_nitech_jp_atr503_m001-1.05.tar.gz"
+homepage = "https://open-jtalk.sourceforge.net/"
+distribution = "https://sourceforge.net/projects/open-jtalk/files/HTS%20voice/hts_voice_nitech_jp_atr503_m001-1.05/"
+filename = "hts_voice_nitech_jp_atr503_m001-1.05.tar.gz"
+expected_sha256 = "2e555c88482267b2931c7dbc7ecc0e3df140d6f68fc913aa4822f336c9e0adfc"
+mirror = true
+license_path = "hts_voice_nitech_jp_atr503_m001-1.05/COPYING"
+
+[[releases.variants]]
+id = "normal"
+name = "Normal"
+style = "normal"
+path = "hts_voice_nitech_jp_atr503_m001-1.05/nitech_jp_atr503_m001.htsvoice"
