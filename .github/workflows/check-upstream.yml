@@ -1,0 +1,53 @@
+name: check-upstream
+
+on:
+  schedule:
+    - cron: "23 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check locked upstreams
+        id: check
+        shell: bash
+        run: |
+          set +e
+          : > upstream-report.txt
+          for v in voices/*/voice.toml; do
+            voice="$(basename "$(dirname "$v")")"
+            lock="voices/$voice/lock.json"
+            if [ ! -f "$lock" ]; then
+              continue
+            fi
+            while read -r release; do
+              python tools/registry.py check-upstream "$voice" "$release" >> upstream-report.txt 2>&1
+            done < <(jq -r '.releases | keys[]' "$lock")
+          done
+          cat upstream-report.txt
+          if grep -Eq '"status": "(changed|unavailable)"' upstream-report.txt; then
+            echo "attention=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "attention=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Create or update upstream attention issue
+        if: steps.check.outputs.attention == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Upstream HTS voice requires attention"
+          issue="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" --body-file upstream-report.txt
+          else
+            gh issue create --title "$title" --body-file upstream-report.txt
+          fi
