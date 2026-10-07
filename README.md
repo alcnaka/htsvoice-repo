@@ -133,3 +133,10 @@ python tools/registry.py stage-release <voice> <release> --out dist
 ## Repository rules worth enabling
 
 Protect `main`, require the `validate` workflow, and review changes under `voices/**`. Treat changes to an existing `lock.json` entry as exceptional: normal updates should append a new release/revision instead.
+
+## Repository license
+
+The original code, scripts, schemas, configuration, and documentation in this repository are licensed under the MIT License. See [LICENSE](./LICENSE).
+
+Mirrored HTS voice models, upstream source archives, and license snapshots are **not** relicensed under MIT. They remain subject to their respective upstream licenses and attribution requirements as recorded in each voice metadata entry and published license snapshot.
+
