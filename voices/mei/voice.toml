@@ -1,0 +1,62 @@
+schema_version = 1
+id = "mei"
+name = "HTS Voice Mei"
+description = "Japanese female HTS voice distributed with MMDAgent Example."
+language = "ja"
+locale = "ja-JP"
+publisher = "MMDAgent Project Team"
+
+[license]
+spdx = "CC-BY-3.0"
+name = "Creative Commons Attribution 3.0"
+url = "https://creativecommons.org/licenses/by/3.0/"
+
+[attribution]
+text = "HTS Voice \"Mei\", released by MMDAgent Project Team; Copyright (c) Nagoya Institute of Technology."
+
+[[releases]]
+id = "1.8+r1"
+upstream_version = "1.8"
+revision = 1
+status = "pending"
+observed_at = "2026-10-07T00:00:00Z"
+
+[releases.source]
+kind = "zip"
+url = "https://downloads.sourceforge.net/project/mmdagent/MMDAgent_Example/MMDAgent_Example-1.8/MMDAgent_Example-1.8.zip"
+homepage = "https://mmdagent.sourceforge.io/"
+distribution = "https://sourceforge.net/projects/mmdagent/files/MMDAgent_Example/MMDAgent_Example-1.8/"
+filename = "MMDAgent_Example-1.8.zip"
+expected_sha256 = "f702f2109a07dca103c7b9a5123a25c6dda038f0d7fcc899ff0281d07e873a63"
+mirror = true
+license_path = "MMDAgent_Example-1.8/Voice/mei/COPYRIGHT.txt"
+
+[[releases.variants]]
+id = "normal"
+name = "Normal"
+style = "normal"
+path = "MMDAgent_Example-1.8/Voice/mei/mei_normal.htsvoice"
+
+[[releases.variants]]
+id = "happy"
+name = "Happy"
+style = "happy"
+path = "MMDAgent_Example-1.8/Voice/mei/mei_happy.htsvoice"
+
+[[releases.variants]]
+id = "angry"
+name = "Angry"
+style = "angry"
+path = "MMDAgent_Example-1.8/Voice/mei/mei_angry.htsvoice"
+
+[[releases.variants]]
+id = "sad"
+name = "Sad"
+style = "sad"
+path = "MMDAgent_Example-1.8/Voice/mei/mei_sad.htsvoice"
+
+[[releases.variants]]
+id = "bashful"
+name = "Bashful"
+style = "bashful"
+path = "MMDAgent_Example-1.8/Voice/mei/mei_bashful.htsvoice"
