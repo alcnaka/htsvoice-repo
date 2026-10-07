@@ -12,13 +12,13 @@ name = "Creative Commons Attribution 3.0"
 url = "https://creativecommons.org/licenses/by/3.0/"
 
 [attribution]
-text = "HTS Voice \"NIT ATR503 M001\"; Copyright (c) 2003-2012 Nagoya Institute of Technology and contributors."
+text = "HTS Voice \"NIT ATR503 M001\", released by HTS Working Group; Copyright (c) 2003-2012 Nagoya Institute of Technology and 2003-2008 Tokyo Institute of Technology."
 
 [[releases]]
 id = "1.05+r1"
 upstream_version = "1.05"
 revision = 1
-status = "pending"
+status = "current"
 observed_at = "2026-10-07T00:00:00Z"
 
 [releases.source]
