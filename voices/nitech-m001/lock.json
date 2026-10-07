@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "releases": {
+    "1.05+r1": {
+      "source": {"sha256":"2e555c88482267b2931c7dbc7ecc0e3df140d6f68fc913aa4822f336c9e0adfc","size":818909},
+      "license": {"sha256":"2c1b49cb4d0b3cdaed8b2652394edbcfc9dc2ad463884704252ffa71ec44f1a0","size":6021},
+      "variants": {
+        "normal": {"sha256":"1329c5e4c0176dc037eef50a73712c60bede2b26ff4a1cba5008223608ca942f","size":1169264,"hts":{"hts_voice_version":"1.0","sampling_frequency":48000,"frame_period":240,"num_states":5,"num_streams":3,"stream_type":"MCP,LF0,LPF"}}
+      }
+    }
+  }
+}
