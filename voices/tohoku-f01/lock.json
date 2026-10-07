@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "releases": {
+    "2015+r1": {
+      "source": {"sha256":"8fcd20c23c5ae3cb69a34f91de1da067dd12d38532a37fc7d17b711730de12b9","size":5449911},
+      "license": {"sha256":"f7f7a1a696f062704825fcc495d330beeeac8c0ed38d8f5bdd8e90bdc3471c95","size":1765},
+      "variants": {
+        "neutral": {"sha256":"ded6acb4243b93cc50896199d67b00a7c487662bfcdcd3f9f30a4fb0444b0b46","size":2154716,"hts":{"hts_voice_version":"1.0","sampling_frequency":48000,"frame_period":240,"num_states":5,"num_streams":3,"stream_type":"MCP,LF0,LPF"}},
+        "happy": {"sha256":"6bf9559a0757c5250165de40dda034a7e95504f3a3ce4abce58532cee1040cc0","size":1636831,"hts":{"hts_voice_version":"1.0","sampling_frequency":48000,"frame_period":240,"num_states":5,"num_streams":3,"stream_type":"MCP,LF0,LPF"}},
+        "angry": {"sha256":"c246afac0d41ada4010db80ca673b6b51cb8e16e9f3a47487d0df3d2ca5b7ec8","size":1830649,"hts":{"hts_voice_version":"1.0","sampling_frequency":48000,"frame_period":240,"num_states":5,"num_streams":3,"stream_type":"MCP,LF0,LPF"}},
+        "sad": {"sha256":"1c76d4d5646c46e13410651c4232b95af8b878e67afd370a605b5de792ba17ee","size":2005039,"hts":{"hts_voice_version":"1.0","sampling_frequency":48000,"frame_period":240,"num_states":5,"num_streams":3,"stream_type":"MCP,LF0,LPF"}}
+      }
+    }
+  }
+}
