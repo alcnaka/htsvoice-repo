@@ -7,3 +7,5 @@ api_prefix = "/v1"
 immutable_blobs = true
 mirror_upstream_archives = true
 require_lock_for_published = true
+
+# deployment bootstrap marker: 2026-10-07
