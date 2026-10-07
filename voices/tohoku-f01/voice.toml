@@ -26,7 +26,8 @@ kind = "tar.gz"
 url = "https://github.com/icn-lab/htsvoice-tohoku-f01/archive/8e3306021db135c265f5eda5f062dc489707ddf8.tar.gz"
 homepage = "https://github.com/icn-lab/htsvoice-tohoku-f01"
 distribution = "https://github.com/icn-lab/htsvoice-tohoku-f01"
-filename = "htsvoice-tohoku-f01-8e3306021db135c265f5eda5f062dc489707ddf8.tar.gz"\nexpected_sha256 = "8fcd20c23c5ae3cb69a34f91de1da067dd12d38532a37fc7d17b711730de12b9"
+filename = "htsvoice-tohoku-f01-8e3306021db135c265f5eda5f062dc489707ddf8.tar.gz"
+expected_sha256 = "8fcd20c23c5ae3cb69a34f91de1da067dd12d38532a37fc7d17b711730de12b9"
 git_commit = "8e3306021db135c265f5eda5f062dc489707ddf8"
 mirror = true
 strip_components = 1
