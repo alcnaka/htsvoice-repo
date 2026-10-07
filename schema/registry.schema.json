@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://htsvoice-repo.alcnaka.com/schema/registry.schema.json",
+  "title": "htsvoice-repo registry configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "name", "base_url", "api_prefix", "policy"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "name": {"type": "string", "minLength": 1},
+    "base_url": {"type": "string", "format": "uri"},
+    "api_prefix": {"type": "string", "pattern": "^/"},
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["immutable_blobs", "mirror_upstream_archives", "require_lock_for_published"],
+      "properties": {
+        "immutable_blobs": {"type": "boolean"},
+        "mirror_upstream_archives": {"type": "boolean"},
+        "require_lock_for_published": {"type": "boolean"}
+      }
+    }
+  }
+}
