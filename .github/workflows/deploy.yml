@@ -1,0 +1,48 @@
+name: deploy-r2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "registry.toml"
+      - "voices/**"
+      - "tools/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: htsvoice-repo-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Ensure AWS CLI
+        run: command -v aws >/dev/null 2>&1 || python -m pip install awscli
+      - name: Configure R2 credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> "$GITHUB_ENV"
+          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> "$GITHUB_ENV"
+          echo "AWS_DEFAULT_REGION=auto" >> "$GITHUB_ENV"
+      - name: Validate published releases
+        run: python tools/registry.py validate --strict
+      - name: Publish immutable artifacts and metadata
+        env:
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+        run: |
+          python tools/publish.py \
+            --bucket "$R2_BUCKET_NAME" \
+            --endpoint "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
