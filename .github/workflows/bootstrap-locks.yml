@@ -1,0 +1,58 @@
+name: bootstrap-locks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/bootstrap-locks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate registry metadata
+        run: python tools/registry.py validate
+
+      - name: Generate initial immutable locks
+        run: |
+          set -euo pipefail
+          python tools/registry.py lock mei 1.8+r1
+          python tools/registry.py lock takumi 1.8+r1
+          python tools/registry.py lock tohoku-f01 2015+r1
+          python tools/registry.py lock nitech-m001 1.05+r1
+
+      - name: Stage and verify releases
+        run: |
+          set -euo pipefail
+          mkdir -p bootstrap-stage
+          python tools/registry.py stage-release mei 1.8+r1 --out bootstrap-stage
+          python tools/registry.py stage-release takumi 1.8+r1 --out bootstrap-stage
+          python tools/registry.py stage-release tohoku-f01 2015+r1 --out bootstrap-stage
+          python tools/registry.py stage-release nitech-m001 1.05+r1 --out bootstrap-stage
+
+      - name: Collect lock files
+        run: |
+          mkdir -p bootstrap-output/locks
+          cp voices/mei/lock.json bootstrap-output/locks/mei.json
+          cp voices/takumi/lock.json bootstrap-output/locks/takumi.json
+          cp voices/tohoku-f01/lock.json bootstrap-output/locks/tohoku-f01.json
+          cp voices/nitech-m001/lock.json bootstrap-output/locks/nitech-m001.json
+          mkdir -p bootstrap-output/licenses
+          cp bootstrap-stage/v1/licenses/sha256/*/*.txt bootstrap-output/licenses/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: initial-locks
+          path: bootstrap-output
+          if-no-files-found: error
+          retention-days: 7
