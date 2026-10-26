@@ -39,15 +39,15 @@ Once published, these keys must never be overwritten or deleted during ordinary 
 
 Each `voices/<id>/voice.toml` records:
 
-- identity: ID, display name, description
+- identity: ID, display name, description, and `default_variant` (the default style of the voice group)
 - language: language and locale
 - publisher
 - upstream homepage, distribution page, original download URL and original archive filename
 - upstream version + repository revision
 - observed timestamp
-- SPDX license ID, canonical license URL, attribution string
+- SPDX license ID, canonical license URL, attribution string; release metadata exposes the immutable mirrored license at `license.file_url` (separate from `license.url`)
 - license file path inside the upstream archive
-- variants/styles and their original paths
+- variants/styles and their original paths (every published release must include the declared `default_variant`)
 - release lifecycle: `pending`, `current`, `superseded`, `deprecated`, `withdrawn`
 
 `lock.json`, generated from the actual upstream bytes, records:
