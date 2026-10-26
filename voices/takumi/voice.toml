@@ -1,5 +1,6 @@
 schema_version = 1
 id = "takumi"
+default_variant = "normal"
 name = "HTS Voice Takumi"
 description = "Japanese male HTS voice distributed with MMDAgent Example."
 language = "ja"

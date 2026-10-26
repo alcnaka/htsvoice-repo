@@ -87,6 +87,8 @@ def validate_voice(vdir: Path, strict: bool = False) -> list[str]:
     lic = voice.get("license", {})
     for key in ("spdx", "name", "url"):
         _require(bool(lic.get(key)), f"{vid}: missing license.{key}")
+    default_variant = voice.get("default_variant")
+    _require(isinstance(default_variant, str) and bool(default_variant), f"{vid}: missing default_variant")
     releases = voice.get("releases", [])
     _require(releases, f"{vid}: at least one release is required")
     ids: set[str] = set()
@@ -121,6 +123,8 @@ def validate_voice(vdir: Path, strict: bool = False) -> list[str]:
             _require(var.get("id") and var["id"] not in variant_ids, f"{vid}/{rid}: duplicate/empty variant id")
             variant_ids.add(var["id"])
             _require(bool(var.get("path")), f"{vid}/{rid}/{var.get('id')}: missing path")
+        if rel["status"] != "pending":
+            _require(default_variant in variant_ids, f"{vid}/{rid}: default_variant {default_variant} is missing")
         locked = lock.get("releases", {}).get(rid)
         if rel["status"] != "pending" and not locked:
             msg = f"{vid}/{rid}: published release has no {LOCK_NAME} entry"
@@ -355,7 +359,7 @@ def release_json(reg: dict[str, Any], voice: dict[str, Any], rel: dict[str, Any]
         "license": {
             **voice["license"],
             "sha256": lic_lock["sha256"],
-            "url": f"{base}/{license_key(lic_lock['sha256'])}",
+            "file_url": f"{base}/{license_key(lic_lock['sha256'])}",
         },
         "attribution": voice.get("attribution", {}),
         "variants": out_vars,
@@ -404,6 +408,7 @@ def build_metadata(out_dir: Path, include_pending: bool = False) -> None:
         vjson = {
             "schema_version": 1,
             "id": voice["id"],
+            "default_variant": voice["default_variant"],
             "name": voice["name"],
             "description": voice["description"],
             "language": voice["language"],

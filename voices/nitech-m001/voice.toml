@@ -1,5 +1,6 @@
 schema_version = 1
 id = "nitech-m001"
+default_variant = "normal"
 name = "NIT ATR503 M001"
 description = "Japanese male HTS voice released as part of Open JTalk."
 language = "ja"
