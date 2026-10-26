@@ -1,3 +1,4 @@
+import copy
 import hashlib
 import io
 import json
@@ -7,6 +8,7 @@ import tempfile
 import unittest
 import zipfile
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -69,6 +71,48 @@ class RegistryTests(unittest.TestCase):
                 registry.fetch_release(voice, rel)
         finally:
             registry.download = old_download
+
+
+    def test_default_variant_is_valid(self):
+        for vdir in registry.voice_dirs():
+            voice = registry.load_voice(vdir)
+            default_variant = voice["default_variant"]
+            for release in voice["releases"]:
+                if release["status"] == "pending":
+                    continue
+                variant_ids = {variant["id"] for variant in release["variants"]}
+                self.assertIn(default_variant, variant_ids, f"{voice['id']}/{release['id']}")
+
+    def test_validate_rejects_unknown_default_variant(self):
+        vdir = registry.VOICES_DIR / "mei"
+        voice = registry.load_voice(vdir)
+        for value in (None, "does-not-exist"):
+            invalid_voice = copy.deepcopy(voice)
+            invalid_voice["default_variant"] = value
+            with self.subTest(value=value):
+                with patch.object(registry, "load_voice", return_value=invalid_voice):
+                    with self.assertRaisesRegex(registry.RegistryError, "default_variant"):
+                        registry.validate_voice(vdir)
+
+    def test_generated_voice_metadata_has_default_variant(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            registry.build_metadata(Path(tmp))
+            path = Path(tmp) / "v1" / "voices" / "tohoku-f01.json"
+            metadata = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(metadata["default_variant"], "neutral")
+
+    def test_release_license_keeps_canonical_url(self):
+        reg = registry.load_registry()
+        vdir = registry.VOICES_DIR / "mei"
+        voice = registry.load_voice(vdir)
+        release = next(r for r in voice["releases"] if r["status"] == "current")
+        locked = registry.load_lock(vdir)["releases"][release["id"]]
+        result = registry.release_json(reg, voice, release, locked)
+        self.assertEqual(result["license"]["url"], voice["license"]["url"])
+        expected_file_url = (
+            f"{reg['base_url'].rstrip('/')}/{registry.license_key(locked['license']['sha256'])}"
+        )
+        self.assertEqual(result["license"]["file_url"], expected_file_url)
 
 
 if __name__ == "__main__":
