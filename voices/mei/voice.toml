@@ -1,5 +1,6 @@
 schema_version = 1
 id = "mei"
+default_variant = "normal"
 name = "HTS Voice Mei"
 description = "Japanese female HTS voice distributed with MMDAgent Example."
 language = "ja"
