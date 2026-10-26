@@ -1,5 +1,6 @@
 schema_version = 1
 id = "tohoku-f01"
+default_variant = "neutral"
 name = "Tohoku-f01"
 description = "Japanese female HTS voice with four emotions: angry, happy, neutral, and sad."
 language = "ja"
